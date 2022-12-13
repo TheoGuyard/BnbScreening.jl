@@ -1,20 +1,24 @@
 # ICASSP experient - Performances
 
-include("../../src/BnbScreening.jl")
+using BnbScreening
+using Dates
+using MathOptInterface
 using StatsBase
+
+const MOI = MathOptInterface
 
 ################################ Configuration #################################
 
 # This is the only part of code you may have to edit
 
-setup = "toeplitz"          # Setup to use : "gaussian" or "toeplitz"
+setup = "gaussian"          # Setup to use : "gaussian" or "toeplitz"
 k = 5                       # Sparsity level
-m, n = 500, 300            # Dictionnary dimension
-snr = 10. * log10(10.)      # SNR of the observation noise
-maxtime = 1000              # Maximum solution time (in second) allowed
-maxiter = 1000              # Maximum Active-Set iterations allowed per relaxation resolution
+m, n = 500, 1000            # Dictionnary dimension
+snr = 10. * log10(10.)      # Noise SNR
+maxtime = 1000              # Maximum solution time (in second)
+maxiter = 1000              # Maximum Active-Set iterations per relaxation resolution
 tol = 1.e-8                 # Integer tolerance (ie, |x|<tol <=> x=0)
-repeats = 10               # Number of repeats in the experiment
+repeats = 10                # Number of repeats of the experiment
 
 
 ################################## Experiment ##################################
