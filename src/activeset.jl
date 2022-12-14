@@ -356,7 +356,11 @@ function discrete_line_search!(
     asviews.sSbarin = tolsign.(asviews.xSbarin,bnbparams.tol)
     asviews.sS1in = tolsign.(asviews.xS1in,bnbparams.tol)
     Atuopt = A' * uopt
-    lb = vopt + (λ_S1 + λ * sum(node.support.Sbarbox))
+    # lb = vopt + (λ_S1 + λ * sum(node.support.Sbarbox))
+    w = y - u
+    pSb = @. (M * abs(Atuopt[node.branch.Sbar]) - λ)
+    pS1 = @. (M * abs(Atuopt[node.branch.S1]) - λ)
+    lb = 0.5 * (y' * y - w' * w) - sum(max.(pSb, 0.)) - sum(pS1)
 
     return uopt, Atuopt, lb
 end
