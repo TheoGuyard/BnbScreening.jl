@@ -493,7 +493,7 @@ function solve_relax_activeset!(
 
     while true
         it += 1
-        it >= bnbparams.maxiter && println("activetset : iteration limit")
+        it >= bnbparams.maxiter && break
 
         Axbox = solve_kkt_system!(node,asviews,B,y,λ,M)
         u, Atu, lb = discrete_line_search!(node,asviews,A,Axbox,y,λ,M,bnbparams)
